@@ -1,0 +1,442 @@
+#load data
+data1 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt1.csv"))
+
+#create a new variable that categorizes age
+data1$age_group <- cut(data1$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+install.packages("doBy")
+library("doBy")
+groupinfo <- function(x){c(length(x), min(x), mean(x), max(x))}
+summaryBy(Age~age_group, data = data1, FUN = groupinfo)
+
+#plots of impressions
+install.packages("ggplot2")
+library("ggplot2")
+ggplot(data1, aes(x = Impressions, fill = age_group)) + geom_histogram(binwidth = 1)
+ggplot(data1, aes(x = age_group, y = Impressions, fill = age_group)) +geom_boxplot()
+
+#plots of CTR
+data1$hasimpressions <- cut(data1$Impressions, c(-Inf, 0, Inf))
+summaryBy(Clicks~hasimpressions, data = data1, FUN = groupinfo)
+ggplot(subset(data1, Impressions > 0), aes(x = Clicks/Impressions, colour = age_group)) + geom_density()
+ggplot(subset(data1, Impressions > 0), aes(x = age_group, y = Clicks/Impressions, fill = age_group)) + geom_boxplot()
+ggplot(subset(data1, Impressions > 0), aes(x = Clicks/Impressions, fill = age_group)) + geom_histogram(binwidth = 1)
+
+#data summary
+data1$scode[data1$Impressions == 0] <- "NoImps"
+data1$scode[data1$Impressions > 0] <- "Imps"
+data1$scode[data1$Clicks > 0] <- "Clicks"
+data1$scode <- factor(data1$scode)
+clen <- function(x){c(length(x))}
+etable <- summaryBy(Impressions~scode + Gender + age_group, data = data1, FUN = clen)
+
+
+
+#2
+data2 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt2.csv"))
+data2$age_group <- cut(data2$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data2$hasimpressions <- cut(data2$Impressions, c(-Inf, 0, Inf))
+data2$scode[data2$Impressions == 0] <- "NoImps"
+data2$scode[data2$Impressions > 0] <- "Imps"
+data2$scode[data2$Clicks > 0] <- "Clicks"
+data2$scode <- factor(data2$scode)
+etable2 <- summaryBy(Impressions~scode + Gender + age_group, data = data2, FUN = clen)
+
+
+
+#3
+data3 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt3.csv"))
+data3$age_group <- cut(data3$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data3$hasimpressions <- cut(data3$Impressions, c(-Inf, 0, Inf))
+data3$scode[data3$Impressions == 0] <- "NoImps"
+data3$scode[data3$Impressions > 0] <- "Imps"
+data3$scode[data3$Clicks > 0] <- "Clicks"
+data3$scode <- factor(data3$scode)
+etable3 <- summaryBy(Impressions~scode + Gender + age_group, data = data3, FUN = clen)
+
+
+
+#4
+data4 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt4.csv"))
+data4$age_group <- cut(data4$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data4$hasimpressions <- cut(data4$Impressions, c(-Inf, 0, Inf))
+data4$scode[data4$Impressions == 0] <- "NoImps"
+data4$scode[data4$Impressions > 0] <- "Imps"
+data4$scode[data4$Clicks > 0] <- "Clicks"
+data4$scode <- factor(data4$scode)
+etable4 <- summaryBy(Impressions~scode + Gender + age_group, data = data4, FUN = clen)
+
+
+
+#5
+data5 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt5.csv"))
+data5$age_group <- cut(data5$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data5$hasimpressions <- cut(data5$Impressions, c(-Inf, 0, Inf))
+data5$scode[data5$Impressions == 0] <- "NoImps"
+data5$scode[data5$Impressions > 0] <- "Imps"
+data5$scode[data5$Clicks > 0] <- "Clicks"
+data5$scode <- factor(data5$scode)
+etable5 <- summaryBy(Impressions~scode + Gender + age_group, data = data5, FUN = clen)
+
+
+
+#6
+data6 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt6.csv"))
+data6$age_group <- cut(data6$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data6$hasimpressions <- cut(data6$Impressions, c(-Inf, 0, Inf))
+data6$scode[data6$Impressions == 0] <- "NoImps"
+data6$scode[data6$Impressions > 0] <- "Imps"
+data6$scode[data6$Clicks > 0] <- "Clicks"
+data6$scode <- factor(data6$scode)
+etable6 <- summaryBy(Impressions~scode + Gender + age_group, data = data6, FUN = clen)
+
+
+
+#7
+data7 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt7.csv"))
+data7$age_group <- cut(data7$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data7$hasimpressions <- cut(data7$Impressions, c(-Inf, 0, Inf))
+data7$scode[data7$Impressions == 0] <- "NoImps"
+data7$scode[data7$Impressions > 0] <- "Imps"
+data7$scode[data7$Clicks > 0] <- "Clicks"
+data7$scode <- factor(data7$scode)
+etable7 <- summaryBy(Impressions~scode + Gender + age_group, data = data7, FUN = clen)
+
+
+
+#8
+data8 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt8.csv"))
+data8$age_group <- cut(data8$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data8$hasimpressions <- cut(data8$Impressions, c(-Inf, 0, Inf))
+data8$scode[data8$Impressions == 0] <- "NoImps"
+data8$scode[data8$Impressions > 0] <- "Imps"
+data8$scode[data8$Clicks > 0] <- "Clicks"
+data8$scode <- factor(data8$scode)
+etable8 <- summaryBy(Impressions~scode + Gender + age_group, data = data8, FUN = clen)
+
+
+
+#9
+data9 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt9.csv"))
+data9$age_group <- cut(data9$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data9$hasimpressions <- cut(data9$Impressions, c(-Inf, 0, Inf))
+data9$scode[data9$Impressions == 0] <- "NoImps"
+data9$scode[data9$Impressions > 0] <- "Imps"
+data9$scode[data9$Clicks > 0] <- "Clicks"
+data9$scode <- factor(data9$scode)
+etable9 <- summaryBy(Impressions~scode + Gender + age_group, data = data9, FUN = clen)
+
+
+
+#10
+data10 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt10.csv"))
+data10$age_group <- cut(data10$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data10$hasimpressions <- cut(data10$Impressions, c(-Inf, 0, Inf))
+data10$scode[data10$Impressions == 0] <- "NoImps"
+data10$scode[data10$Impressions > 0] <- "Imps"
+data10$scode[data10$Clicks > 0] <- "Clicks"
+data10$scode <- factor(data10$scode)
+etable10 <- summaryBy(Impressions~scode + Gender + age_group, data = data10, FUN = clen)
+
+
+
+#11
+data11 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt11.csv"))
+data11$age_group <- cut(data11$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data11$hasimpressions <- cut(data11$Impressions, c(-Inf, 0, Inf))
+data11$scode[data11$Impressions == 0] <- "NoImps"
+data11$scode[data11$Impressions > 0] <- "Imps"
+data11$scode[data11$Clicks > 0] <- "Clicks"
+data11$scode <- factor(data11$scode)
+etable11 <- summaryBy(Impressions~scode + Gender + age_group, data = data11, FUN = clen)
+
+
+
+#12
+data12 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt12.csv"))
+data12$age_group <- cut(data12$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data12$hasimpressions <- cut(data12$Impressions, c(-Inf, 0, Inf))
+data12$scode[data12$Impressions == 0] <- "NoImps"
+data12$scode[data12$Impressions > 0] <- "Imps"
+data12$scode[data12$Clicks > 0] <- "Clicks"
+data12$scode <- factor(data12$scode)
+etable12 <- summaryBy(Impressions~scode + Gender + age_group, data = data12, FUN = clen)
+
+
+
+#13
+data13 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt13.csv"))
+data13$age_group <- cut(data13$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data13$hasimpressions <- cut(data13$Impressions, c(-Inf, 0, Inf))
+data13$scode[data13$Impressions == 0] <- "NoImps"
+data13$scode[data13$Impressions > 0] <- "Imps"
+data13$scode[data13$Clicks > 0] <- "Clicks"
+data13$scode <- factor(data13$scode)
+etable13 <- summaryBy(Impressions~scode + Gender + age_group, data = data13, FUN = clen)
+
+
+
+#14
+data14 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt14.csv"))
+data14$age_group <- cut(data14$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data14$hasimpressions <- cut(data14$Impressions, c(-Inf, 0, Inf))
+data14$scode[data14$Impressions == 0] <- "NoImps"
+data14$scode[data14$Impressions > 0] <- "Imps"
+data14$scode[data14$Clicks > 0] <- "Clicks"
+data14$scode <- factor(data14$scode)
+etable14 <- summaryBy(Impressions~scode + Gender + age_group, data = data14, FUN = clen)
+
+
+
+#15
+data15 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt15.csv"))
+data15$age_group <- cut(data15$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data15$hasimpressions <- cut(data15$Impressions, c(-Inf, 0, Inf))
+data15$scode[data15$Impressions == 0] <- "NoImps"
+data15$scode[data15$Impressions > 0] <- "Imps"
+data15$scode[data15$Clicks > 0] <- "Clicks"
+data15$scode <- factor(data15$scode)
+etable15 <- summaryBy(Impressions~scode + Gender + age_group, data = data15, FUN = clen)
+
+
+
+#16
+data16 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt16.csv"))
+data16$age_group <- cut(data16$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data16$hasimpressions <- cut(data16$Impressions, c(-Inf, 0, Inf))
+data16$scode[data16$Impressions == 0] <- "NoImps"
+data16$scode[data16$Impressions > 0] <- "Imps"
+data16$scode[data16$Clicks > 0] <- "Clicks"
+data16$scode <- factor(data16$scode)
+etable16 <- summaryBy(Impressions~scode + Gender + age_group, data = data16, FUN = clen)
+
+
+
+#17
+data17 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt17.csv"))
+data17$age_group <- cut(data17$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data17$hasimpressions <- cut(data17$Impressions, c(-Inf, 0, Inf))
+data17$scode[data17$Impressions == 0] <- "NoImps"
+data17$scode[data17$Impressions > 0] <- "Imps"
+data17$scode[data17$Clicks > 0] <- "Clicks"
+data17$scode <- factor(data17$scode)
+etable17 <- summaryBy(Impressions~scode + Gender + age_group, data = data17, FUN = clen)
+
+
+
+#18
+data18 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt18.csv"))
+data18$age_group <- cut(data18$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data18$hasimpressions <- cut(data18$Impressions, c(-Inf, 0, Inf))
+data18$scode[data18$Impressions == 0] <- "NoImps"
+data18$scode[data18$Impressions > 0] <- "Imps"
+data18$scode[data18$Clicks > 0] <- "Clicks"
+data18$scode <- factor(data18$scode)
+etable18 <- summaryBy(Impressions~scode + Gender + age_group, data = data18, FUN = clen)
+
+
+
+#19
+data19 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt19.csv"))
+data19$age_group <- cut(data19$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data19$hasimpressions <- cut(data19$Impressions, c(-Inf, 0, Inf))
+data19$scode[data19$Impressions == 0] <- "NoImps"
+data19$scode[data19$Impressions > 0] <- "Imps"
+data19$scode[data19$Clicks > 0] <- "Clicks"
+data19$scode <- factor(data19$scode)
+etable19 <- summaryBy(Impressions~scode + Gender + age_group, data = data19, FUN = clen)
+
+
+
+#20
+data20 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt20.csv"))
+data20$age_group <- cut(data20$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data20$hasimpressions <- cut(data20$Impressions, c(-Inf, 0, Inf))
+data20$scode[data20$Impressions == 0] <- "NoImps"
+data20$scode[data20$Impressions > 0] <- "Imps"
+data20$scode[data20$Clicks > 0] <- "Clicks"
+data20$scode <- factor(data20$scode)
+etable20 <- summaryBy(Impressions~scode + Gender + age_group, data = data20, FUN = clen)
+
+
+
+#21
+data21 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt21.csv"))
+data21$age_group <- cut(data21$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data21$hasimpressions <- cut(data21$Impressions, c(-Inf, 0, Inf))
+data21$scode[data21$Impressions == 0] <- "NoImps"
+data21$scode[data21$Impressions > 0] <- "Imps"
+data21$scode[data21$Clicks > 0] <- "Clicks"
+data21$scode <- factor(data21$scode)
+etable21 <- summaryBy(Impressions~scode + Gender + age_group, data = data21, FUN = clen)
+
+
+
+#22
+data22 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt22.csv"))
+data22$age_group <- cut(data22$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data22$hasimpressions <- cut(data22$Impressions, c(-Inf, 0, Inf))
+data22$scode[data22$Impressions == 0] <- "NoImps"
+data22$scode[data22$Impressions > 0] <- "Imps"
+data22$scode[data22$Clicks > 0] <- "Clicks"
+data22$scode <- factor(data22$scode)
+etable22 <- summaryBy(Impressions~scode + Gender + age_group, data = data22, FUN = clen)
+
+
+
+#23
+data23 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt23.csv"))
+data23$age_group <- cut(data23$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data23$hasimpressions <- cut(data23$Impressions, c(-Inf, 0, Inf))
+data23$scode[data23$Impressions == 0] <- "NoImps"
+data23$scode[data23$Impressions > 0] <- "Imps"
+data23$scode[data23$Clicks > 0] <- "Clicks"
+data23$scode <- factor(data23$scode)
+etable23 <- summaryBy(Impressions~scode + Gender + age_group, data = data23, FUN = clen)
+
+
+
+#24
+data24 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt24.csv"))
+data24$age_group <- cut(data24$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data24$hasimpressions <- cut(data24$Impressions, c(-Inf, 0, Inf))
+data24$scode[data24$Impressions == 0] <- "NoImps"
+data24$scode[data24$Impressions > 0] <- "Imps"
+data24$scode[data24$Clicks > 0] <- "Clicks"
+data24$scode <- factor(data24$scode)
+etable24 <- summaryBy(Impressions~scode + Gender + age_group, data = data24, FUN = clen)
+
+
+
+#25
+data25 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt25.csv"))
+data25$age_group <- cut(data25$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data25$hasimpressions <- cut(data25$Impressions, c(-Inf, 0, Inf))
+data25$scode[data25$Impressions == 0] <- "NoImps"
+data25$scode[data25$Impressions > 0] <- "Imps"
+data25$scode[data25$Clicks > 0] <- "Clicks"
+data25$scode <- factor(data25$scode)
+etable25 <- summaryBy(Impressions~scode + Gender + age_group, data = data25, FUN = clen)
+
+
+
+#26
+data26 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt26.csv"))
+data26$age_group <- cut(data26$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data26$hasimpressions <- cut(data26$Impressions, c(-Inf, 0, Inf))
+data26$scode[data26$Impressions == 0] <- "NoImps"
+data26$scode[data26$Impressions > 0] <- "Imps"
+data26$scode[data26$Clicks > 0] <- "Clicks"
+data26$scode <- factor(data26$scode)
+etable26 <- summaryBy(Impressions~scode + Gender + age_group, data = data26, FUN = clen)
+
+
+
+#27
+data27 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt27.csv"))
+data27$age_group <- cut(data27$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data27$hasimpressions <- cut(data27$Impressions, c(-Inf, 0, Inf))
+data27$scode[data27$Impressions == 0] <- "NoImps"
+data27$scode[data27$Impressions > 0] <- "Imps"
+data27$scode[data27$Clicks > 0] <- "Clicks"
+data27$scode <- factor(data27$scode)
+etable27 <- summaryBy(Impressions~scode + Gender + age_group, data = data27, FUN = clen)
+
+
+
+#28
+data28 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt28.csv"))
+data28$age_group <- cut(data28$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data28$hasimpressions <- cut(data28$Impressions, c(-Inf, 0, Inf))
+data28$scode[data28$Impressions == 0] <- "NoImps"
+data28$scode[data28$Impressions > 0] <- "Imps"
+data28$scode[data28$Clicks > 0] <- "Clicks"
+data28$scode <- factor(data28$scode)
+etable28 <- summaryBy(Impressions~scode + Gender + age_group, data = data28, FUN = clen)
+
+
+
+#29
+data29 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt29.csv"))
+data29$age_group <- cut(data29$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data29$hasimpressions <- cut(data29$Impressions, c(-Inf, 0, Inf))
+data29$scode[data29$Impressions == 0] <- "NoImps"
+data29$scode[data29$Impressions > 0] <- "Imps"
+data29$scode[data29$Clicks > 0] <- "Clicks"
+data29$scode <- factor(data29$scode)
+etable29 <- summaryBy(Impressions~scode + Gender + age_group, data = data29, FUN = clen)
+
+
+
+#30
+data30 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt30.csv"))
+data30$age_group <- cut(data30$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data30$hasimpressions <- cut(data30$Impressions, c(-Inf, 0, Inf))
+data30$scode[data30$Impressions == 0] <- "NoImps"
+data30$scode[data30$Impressions > 0] <- "Imps"
+data30$scode[data30$Clicks > 0] <- "Clicks"
+data30$scode <- factor(data30$scode)
+etable30 <- summaryBy(Impressions~scode + Gender + age_group, data = data30, FUN = clen)
+
+
+
+#31
+data31 <- read.csv(url("http://stat.columbia.edu/~rachel/datasets/nyt31.csv"))
+data31$age_group <- cut(data31$Age, c(-Inf, 18, 24, 34, 44, 54, 64, Inf))
+data31$hasimpressions <- cut(data31$Impressions, c(-Inf, 0, Inf))
+data31$scode[data31$Impressions == 0] <- "NoImps"
+data31$scode[data31$Impressions > 0] <- "Imps"
+data31$scode[data31$Clicks > 0] <- "Clicks"
+data31$scode <- factor(data31$scode)
+etable31 <- summaryBy(Impressions~scode + Gender + age_group, data = data31, FUN = clen)
+
+
+
+n1 = (etable$Impressions.clen[1]+etable2$Impressions.clen[1]+etable3$Impressions.clen[1]+etable4$Impressions.clen[1]+etable5$Impressions.clen[1]+etable6$Impressions.clen[1]+etable7$Impressions.clen[1]+etable8$Impressions.clen[1]+etable9$Impressions.clen[1]+etable10$Impressions.clen[1]+etable11$Impressions.clen[1]+etable12$Impressions.clen[1]+etable13$Impressions.clen[1]+etable14$Impressions.clen[1]+etable15$Impressions.clen[1]+etable16$Impressions.clen[1]+etable17$Impressions.clen[1]+etable18$Impressions.clen[1]+etable19$Impressions.clen[1]+etable20$Impressions.clen[1]+etable21$Impressions.clen[1]+etable22$Impressions.clen[1]+etable23$Impressions.clen[1]+etable24$Impressions.clen[1]+etable25$Impressions.clen[1]+etable26$Impressions.clen[1]+etable27$Impressions.clen[1]+etable28$Impressions.clen[1]+etable29$Impressions.clen[1]+etable30$Impressions.clen[1]+etable31$Impressions.clen[1])/31
+n2 = (etable$Impressions.clen[2]+etable2$Impressions.clen[2]+etable3$Impressions.clen[2]+etable4$Impressions.clen[2]+etable5$Impressions.clen[2]+etable6$Impressions.clen[2]+etable7$Impressions.clen[2]+etable8$Impressions.clen[2]+etable9$Impressions.clen[2]+etable10$Impressions.clen[2]+etable11$Impressions.clen[2]+etable12$Impressions.clen[2]+etable13$Impressions.clen[2]+etable14$Impressions.clen[2]+etable15$Impressions.clen[2]+etable16$Impressions.clen[2]+etable17$Impressions.clen[2]+etable18$Impressions.clen[2]+etable19$Impressions.clen[2]+etable20$Impressions.clen[2]+etable21$Impressions.clen[2]+etable22$Impressions.clen[2]+etable23$Impressions.clen[2]+etable24$Impressions.clen[2]+etable25$Impressions.clen[2]+etable26$Impressions.clen[2]+etable27$Impressions.clen[2]+etable28$Impressions.clen[2]+etable29$Impressions.clen[2]+etable30$Impressions.clen[2]+etable31$Impressions.clen[2])/31
+n3 = (etable$Impressions.clen[3]+etable2$Impressions.clen[3]+etable3$Impressions.clen[3]+etable4$Impressions.clen[3]+etable5$Impressions.clen[3]+etable6$Impressions.clen[3]+etable7$Impressions.clen[3]+etable8$Impressions.clen[3]+etable9$Impressions.clen[3]+etable10$Impressions.clen[3]+etable11$Impressions.clen[3]+etable12$Impressions.clen[3]+etable13$Impressions.clen[3]+etable14$Impressions.clen[3]+etable15$Impressions.clen[3]+etable16$Impressions.clen[3]+etable17$Impressions.clen[3]+etable18$Impressions.clen[3]+etable19$Impressions.clen[3]+etable20$Impressions.clen[3]+etable21$Impressions.clen[3]+etable22$Impressions.clen[3]+etable23$Impressions.clen[3]+etable24$Impressions.clen[3]+etable25$Impressions.clen[3]+etable26$Impressions.clen[3]+etable27$Impressions.clen[3]+etable28$Impressions.clen[3]+etable29$Impressions.clen[3]+etable30$Impressions.clen[3]+etable31$Impressions.clen[3])/31
+n4 = (etable$Impressions.clen[4]+etable2$Impressions.clen[4]+etable3$Impressions.clen[4]+etable4$Impressions.clen[4]+etable5$Impressions.clen[4]+etable6$Impressions.clen[4]+etable7$Impressions.clen[4]+etable8$Impressions.clen[4]+etable9$Impressions.clen[4]+etable10$Impressions.clen[4]+etable11$Impressions.clen[4]+etable12$Impressions.clen[4]+etable13$Impressions.clen[4]+etable14$Impressions.clen[4]+etable15$Impressions.clen[4]+etable16$Impressions.clen[4]+etable17$Impressions.clen[4]+etable18$Impressions.clen[4]+etable19$Impressions.clen[4]+etable20$Impressions.clen[4]+etable21$Impressions.clen[4]+etable22$Impressions.clen[4]+etable23$Impressions.clen[4]+etable24$Impressions.clen[4]+etable25$Impressions.clen[4]+etable26$Impressions.clen[4]+etable27$Impressions.clen[4]+etable28$Impressions.clen[4]+etable29$Impressions.clen[4]+etable30$Impressions.clen[4]+etable31$Impressions.clen[4])/31
+n5 = (etable$Impressions.clen[5]+etable2$Impressions.clen[5]+etable3$Impressions.clen[5]+etable4$Impressions.clen[5]+etable5$Impressions.clen[5]+etable6$Impressions.clen[5]+etable7$Impressions.clen[5]+etable8$Impressions.clen[5]+etable9$Impressions.clen[5]+etable10$Impressions.clen[5]+etable11$Impressions.clen[5]+etable12$Impressions.clen[5]+etable13$Impressions.clen[5]+etable14$Impressions.clen[5]+etable15$Impressions.clen[5]+etable16$Impressions.clen[5]+etable17$Impressions.clen[5]+etable18$Impressions.clen[5]+etable19$Impressions.clen[5]+etable20$Impressions.clen[5]+etable21$Impressions.clen[5]+etable22$Impressions.clen[5]+etable23$Impressions.clen[5]+etable24$Impressions.clen[5]+etable25$Impressions.clen[5]+etable26$Impressions.clen[5]+etable27$Impressions.clen[5]+etable28$Impressions.clen[5]+etable29$Impressions.clen[5]+etable30$Impressions.clen[5]+etable31$Impressions.clen[5])/31
+n6 = (etable$Impressions.clen[6]+etable2$Impressions.clen[6]+etable3$Impressions.clen[6]+etable4$Impressions.clen[6]+etable5$Impressions.clen[6]+etable6$Impressions.clen[6]+etable7$Impressions.clen[6]+etable8$Impressions.clen[6]+etable9$Impressions.clen[6]+etable10$Impressions.clen[6]+etable11$Impressions.clen[6]+etable12$Impressions.clen[6]+etable13$Impressions.clen[6]+etable14$Impressions.clen[6]+etable15$Impressions.clen[6]+etable16$Impressions.clen[6]+etable17$Impressions.clen[6]+etable18$Impressions.clen[6]+etable19$Impressions.clen[6]+etable20$Impressions.clen[6]+etable21$Impressions.clen[6]+etable22$Impressions.clen[6]+etable23$Impressions.clen[6]+etable24$Impressions.clen[6]+etable25$Impressions.clen[6]+etable26$Impressions.clen[6]+etable27$Impressions.clen[6]+etable28$Impressions.clen[6]+etable29$Impressions.clen[6]+etable30$Impressions.clen[6]+etable31$Impressions.clen[6])/31
+n7 = (etable$Impressions.clen[7]+etable2$Impressions.clen[7]+etable3$Impressions.clen[7]+etable4$Impressions.clen[7]+etable5$Impressions.clen[7]+etable6$Impressions.clen[7]+etable7$Impressions.clen[7]+etable8$Impressions.clen[7]+etable9$Impressions.clen[7]+etable10$Impressions.clen[7]+etable11$Impressions.clen[7]+etable12$Impressions.clen[7]+etable13$Impressions.clen[7]+etable14$Impressions.clen[7]+etable15$Impressions.clen[7]+etable16$Impressions.clen[7]+etable17$Impressions.clen[7]+etable18$Impressions.clen[7]+etable19$Impressions.clen[7]+etable20$Impressions.clen[7]+etable21$Impressions.clen[7]+etable22$Impressions.clen[7]+etable23$Impressions.clen[7]+etable24$Impressions.clen[7]+etable25$Impressions.clen[7]+etable26$Impressions.clen[7]+etable27$Impressions.clen[7]+etable28$Impressions.clen[7]+etable29$Impressions.clen[7]+etable30$Impressions.clen[7]+etable31$Impressions.clen[7])/31
+n8 = (etable$Impressions.clen[8]+etable2$Impressions.clen[8]+etable3$Impressions.clen[8]+etable4$Impressions.clen[8]+etable5$Impressions.clen[8]+etable6$Impressions.clen[8]+etable7$Impressions.clen[8]+etable8$Impressions.clen[8]+etable9$Impressions.clen[8]+etable10$Impressions.clen[8]+etable11$Impressions.clen[8]+etable12$Impressions.clen[8]+etable13$Impressions.clen[8]+etable14$Impressions.clen[8]+etable15$Impressions.clen[8]+etable16$Impressions.clen[8]+etable17$Impressions.clen[8]+etable18$Impressions.clen[8]+etable19$Impressions.clen[8]+etable20$Impressions.clen[8]+etable21$Impressions.clen[8]+etable22$Impressions.clen[8]+etable23$Impressions.clen[8]+etable24$Impressions.clen[8]+etable25$Impressions.clen[8]+etable26$Impressions.clen[8]+etable27$Impressions.clen[8]+etable28$Impressions.clen[8]+etable29$Impressions.clen[8]+etable30$Impressions.clen[8]+etable31$Impressions.clen[8])/31
+n9 = (etable$Impressions.clen[9]+etable2$Impressions.clen[9]+etable3$Impressions.clen[9]+etable4$Impressions.clen[9]+etable5$Impressions.clen[9]+etable6$Impressions.clen[9]+etable7$Impressions.clen[9]+etable8$Impressions.clen[9]+etable9$Impressions.clen[9]+etable10$Impressions.clen[9]+etable11$Impressions.clen[9]+etable12$Impressions.clen[9]+etable13$Impressions.clen[9]+etable14$Impressions.clen[9]+etable15$Impressions.clen[9]+etable16$Impressions.clen[9]+etable17$Impressions.clen[9]+etable18$Impressions.clen[9]+etable19$Impressions.clen[9]+etable20$Impressions.clen[9]+etable21$Impressions.clen[9]+etable22$Impressions.clen[9]+etable23$Impressions.clen[9]+etable24$Impressions.clen[9]+etable25$Impressions.clen[9]+etable26$Impressions.clen[9]+etable27$Impressions.clen[9]+etable28$Impressions.clen[9]+etable29$Impressions.clen[9]+etable30$Impressions.clen[9]+etable31$Impressions.clen[9])/31
+n10 = (etable$Impressions.clen[10]+etable2$Impressions.clen[10]+etable3$Impressions.clen[10]+etable4$Impressions.clen[10]+etable5$Impressions.clen[10]+etable6$Impressions.clen[10]+etable7$Impressions.clen[10]+etable8$Impressions.clen[10]+etable9$Impressions.clen[10]+etable10$Impressions.clen[10]+etable11$Impressions.clen[10]+etable12$Impressions.clen[10]+etable13$Impressions.clen[10]+etable14$Impressions.clen[10]+etable15$Impressions.clen[10]+etable16$Impressions.clen[10]+etable17$Impressions.clen[10]+etable18$Impressions.clen[10]+etable19$Impressions.clen[10]+etable20$Impressions.clen[10]+etable21$Impressions.clen[10]+etable22$Impressions.clen[10]+etable23$Impressions.clen[10]+etable24$Impressions.clen[10]+etable25$Impressions.clen[10]+etable26$Impressions.clen[10]+etable27$Impressions.clen[10]+etable28$Impressions.clen[10]+etable29$Impressions.clen[10]+etable30$Impressions.clen[10]+etable31$Impressions.clen[10])/31
+n11 = (etable$Impressions.clen[11]+etable2$Impressions.clen[11]+etable3$Impressions.clen[11]+etable4$Impressions.clen[11]+etable5$Impressions.clen[11]+etable6$Impressions.clen[11]+etable7$Impressions.clen[11]+etable8$Impressions.clen[11]+etable9$Impressions.clen[11]+etable10$Impressions.clen[11]+etable11$Impressions.clen[11]+etable12$Impressions.clen[11]+etable13$Impressions.clen[11]+etable14$Impressions.clen[11]+etable15$Impressions.clen[11]+etable16$Impressions.clen[11]+etable17$Impressions.clen[11]+etable18$Impressions.clen[11]+etable19$Impressions.clen[11]+etable20$Impressions.clen[11]+etable21$Impressions.clen[11]+etable22$Impressions.clen[11]+etable23$Impressions.clen[11]+etable24$Impressions.clen[11]+etable25$Impressions.clen[11]+etable26$Impressions.clen[11]+etable27$Impressions.clen[11]+etable28$Impressions.clen[11]+etable29$Impressions.clen[11]+etable30$Impressions.clen[11]+etable31$Impressions.clen[11])/31
+n12 = (etable$Impressions.clen[12]+etable2$Impressions.clen[12]+etable3$Impressions.clen[12]+etable4$Impressions.clen[12]+etable5$Impressions.clen[12]+etable6$Impressions.clen[12]+etable7$Impressions.clen[12]+etable8$Impressions.clen[12]+etable9$Impressions.clen[12]+etable10$Impressions.clen[12]+etable11$Impressions.clen[12]+etable12$Impressions.clen[12]+etable13$Impressions.clen[12]+etable14$Impressions.clen[12]+etable15$Impressions.clen[12]+etable16$Impressions.clen[12]+etable17$Impressions.clen[12]+etable18$Impressions.clen[12]+etable19$Impressions.clen[12]+etable20$Impressions.clen[12]+etable21$Impressions.clen[12]+etable22$Impressions.clen[12]+etable23$Impressions.clen[12]+etable24$Impressions.clen[12]+etable25$Impressions.clen[12]+etable26$Impressions.clen[12]+etable27$Impressions.clen[12]+etable28$Impressions.clen[12]+etable29$Impressions.clen[12]+etable30$Impressions.clen[12]+etable31$Impressions.clen[12])/31
+n13 = (etable$Impressions.clen[13]+etable2$Impressions.clen[13]+etable3$Impressions.clen[13]+etable4$Impressions.clen[13]+etable5$Impressions.clen[13]+etable6$Impressions.clen[13]+etable7$Impressions.clen[13]+etable8$Impressions.clen[13]+etable9$Impressions.clen[13]+etable10$Impressions.clen[13]+etable11$Impressions.clen[13]+etable12$Impressions.clen[13]+etable13$Impressions.clen[13]+etable14$Impressions.clen[13]+etable15$Impressions.clen[13]+etable16$Impressions.clen[13]+etable17$Impressions.clen[13]+etable18$Impressions.clen[13]+etable19$Impressions.clen[13]+etable20$Impressions.clen[13]+etable21$Impressions.clen[13]+etable22$Impressions.clen[13]+etable23$Impressions.clen[13]+etable24$Impressions.clen[13]+etable25$Impressions.clen[13]+etable26$Impressions.clen[13]+etable27$Impressions.clen[13]+etable28$Impressions.clen[13]+etable29$Impressions.clen[13]+etable30$Impressions.clen[13]+etable31$Impressions.clen[13])/31
+n14 = (etable$Impressions.clen[14]+etable2$Impressions.clen[14]+etable3$Impressions.clen[14]+etable4$Impressions.clen[14]+etable5$Impressions.clen[14]+etable6$Impressions.clen[14]+etable7$Impressions.clen[14]+etable8$Impressions.clen[14]+etable9$Impressions.clen[14]+etable10$Impressions.clen[14]+etable11$Impressions.clen[14]+etable12$Impressions.clen[14]+etable13$Impressions.clen[14]+etable14$Impressions.clen[14]+etable15$Impressions.clen[14]+etable16$Impressions.clen[14]+etable17$Impressions.clen[14]+etable18$Impressions.clen[14]+etable19$Impressions.clen[14]+etable20$Impressions.clen[14]+etable21$Impressions.clen[14]+etable22$Impressions.clen[14]+etable23$Impressions.clen[14]+etable24$Impressions.clen[14]+etable25$Impressions.clen[14]+etable26$Impressions.clen[14]+etable27$Impressions.clen[14]+etable28$Impressions.clen[14]+etable29$Impressions.clen[14]+etable30$Impressions.clen[14]+etable31$Impressions.clen[14])/31
+n15 = (etable$Impressions.clen[15]+etable2$Impressions.clen[15]+etable3$Impressions.clen[15]+etable4$Impressions.clen[15]+etable5$Impressions.clen[15]+etable6$Impressions.clen[15]+etable7$Impressions.clen[15]+etable8$Impressions.clen[15]+etable9$Impressions.clen[15]+etable10$Impressions.clen[15]+etable11$Impressions.clen[15]+etable12$Impressions.clen[15]+etable13$Impressions.clen[15]+etable14$Impressions.clen[15]+etable15$Impressions.clen[15]+etable16$Impressions.clen[15]+etable17$Impressions.clen[15]+etable18$Impressions.clen[15]+etable19$Impressions.clen[15]+etable20$Impressions.clen[15]+etable21$Impressions.clen[15]+etable22$Impressions.clen[15]+etable23$Impressions.clen[15]+etable24$Impressions.clen[15]+etable25$Impressions.clen[15]+etable26$Impressions.clen[15]+etable27$Impressions.clen[15]+etable28$Impressions.clen[15]+etable29$Impressions.clen[15]+etable30$Impressions.clen[15]+etable31$Impressions.clen[15])/31
+n16 = (etable$Impressions.clen[16]+etable2$Impressions.clen[16]+etable3$Impressions.clen[16]+etable4$Impressions.clen[16]+etable5$Impressions.clen[16]+etable6$Impressions.clen[16]+etable7$Impressions.clen[16]+etable8$Impressions.clen[16]+etable9$Impressions.clen[16]+etable10$Impressions.clen[16]+etable11$Impressions.clen[16]+etable12$Impressions.clen[16]+etable13$Impressions.clen[16]+etable14$Impressions.clen[16]+etable15$Impressions.clen[16]+etable16$Impressions.clen[16]+etable17$Impressions.clen[16]+etable18$Impressions.clen[16]+etable19$Impressions.clen[16]+etable20$Impressions.clen[16]+etable21$Impressions.clen[16]+etable22$Impressions.clen[16]+etable23$Impressions.clen[16]+etable24$Impressions.clen[16]+etable25$Impressions.clen[16]+etable26$Impressions.clen[16]+etable27$Impressions.clen[16]+etable28$Impressions.clen[16]+etable29$Impressions.clen[16]+etable30$Impressions.clen[16]+etable31$Impressions.clen[16])/31
+n17 = (etable$Impressions.clen[17]+etable2$Impressions.clen[17]+etable3$Impressions.clen[17]+etable4$Impressions.clen[17]+etable5$Impressions.clen[17]+etable6$Impressions.clen[17]+etable7$Impressions.clen[17]+etable8$Impressions.clen[17]+etable9$Impressions.clen[17]+etable10$Impressions.clen[17]+etable11$Impressions.clen[17]+etable12$Impressions.clen[17]+etable13$Impressions.clen[17]+etable14$Impressions.clen[17]+etable15$Impressions.clen[17]+etable16$Impressions.clen[17]+etable17$Impressions.clen[17]+etable18$Impressions.clen[17]+etable19$Impressions.clen[17]+etable20$Impressions.clen[17]+etable21$Impressions.clen[17]+etable22$Impressions.clen[17]+etable23$Impressions.clen[17]+etable24$Impressions.clen[17]+etable25$Impressions.clen[17]+etable26$Impressions.clen[17]+etable27$Impressions.clen[17]+etable28$Impressions.clen[17]+etable29$Impressions.clen[17]+etable30$Impressions.clen[17]+etable31$Impressions.clen[17])/31
+n18 = (etable$Impressions.clen[18]+etable2$Impressions.clen[18]+etable3$Impressions.clen[18]+etable4$Impressions.clen[18]+etable5$Impressions.clen[18]+etable6$Impressions.clen[18]+etable7$Impressions.clen[18]+etable8$Impressions.clen[18]+etable9$Impressions.clen[18]+etable10$Impressions.clen[18]+etable11$Impressions.clen[18]+etable12$Impressions.clen[18]+etable13$Impressions.clen[18]+etable14$Impressions.clen[18]+etable15$Impressions.clen[18]+etable16$Impressions.clen[18]+etable17$Impressions.clen[18]+etable18$Impressions.clen[18]+etable19$Impressions.clen[18]+etable20$Impressions.clen[18]+etable21$Impressions.clen[18]+etable22$Impressions.clen[18]+etable23$Impressions.clen[18]+etable24$Impressions.clen[18]+etable25$Impressions.clen[18]+etable26$Impressions.clen[18]+etable27$Impressions.clen[18]+etable28$Impressions.clen[18]+etable29$Impressions.clen[18]+etable30$Impressions.clen[18]+etable31$Impressions.clen[18])/31
+n19 = (etable$Impressions.clen[19]+etable2$Impressions.clen[19]+etable3$Impressions.clen[19]+etable4$Impressions.clen[19]+etable5$Impressions.clen[19]+etable6$Impressions.clen[19]+etable7$Impressions.clen[19]+etable8$Impressions.clen[19]+etable9$Impressions.clen[19]+etable10$Impressions.clen[19]+etable11$Impressions.clen[19]+etable12$Impressions.clen[19]+etable13$Impressions.clen[19]+etable14$Impressions.clen[19]+etable15$Impressions.clen[19]+etable16$Impressions.clen[19]+etable17$Impressions.clen[19]+etable18$Impressions.clen[19]+etable19$Impressions.clen[19]+etable20$Impressions.clen[19]+etable21$Impressions.clen[19]+etable22$Impressions.clen[19]+etable23$Impressions.clen[19]+etable24$Impressions.clen[19]+etable25$Impressions.clen[19]+etable26$Impressions.clen[19]+etable27$Impressions.clen[19]+etable28$Impressions.clen[19]+etable29$Impressions.clen[19]+etable30$Impressions.clen[19]+etable31$Impressions.clen[19])/31
+n20 = (etable$Impressions.clen[20]+etable2$Impressions.clen[20]+etable3$Impressions.clen[20]+etable4$Impressions.clen[20]+etable5$Impressions.clen[20]+etable6$Impressions.clen[20]+etable7$Impressions.clen[20]+etable8$Impressions.clen[20]+etable9$Impressions.clen[20]+etable10$Impressions.clen[20]+etable11$Impressions.clen[20]+etable12$Impressions.clen[20]+etable13$Impressions.clen[20]+etable14$Impressions.clen[20]+etable15$Impressions.clen[20]+etable16$Impressions.clen[20]+etable17$Impressions.clen[20]+etable18$Impressions.clen[20]+etable19$Impressions.clen[20]+etable20$Impressions.clen[20]+etable21$Impressions.clen[20]+etable22$Impressions.clen[20]+etable23$Impressions.clen[20]+etable24$Impressions.clen[20]+etable25$Impressions.clen[20]+etable26$Impressions.clen[20]+etable27$Impressions.clen[20]+etable28$Impressions.clen[20]+etable29$Impressions.clen[20]+etable30$Impressions.clen[20]+etable31$Impressions.clen[20])/31
+n21 = (etable$Impressions.clen[21]+etable2$Impressions.clen[21]+etable3$Impressions.clen[21]+etable4$Impressions.clen[21]+etable5$Impressions.clen[21]+etable6$Impressions.clen[21]+etable7$Impressions.clen[21]+etable8$Impressions.clen[21]+etable9$Impressions.clen[21]+etable10$Impressions.clen[21]+etable11$Impressions.clen[21]+etable12$Impressions.clen[21]+etable13$Impressions.clen[21]+etable14$Impressions.clen[21]+etable15$Impressions.clen[21]+etable16$Impressions.clen[21]+etable17$Impressions.clen[21]+etable18$Impressions.clen[21]+etable19$Impressions.clen[21]+etable20$Impressions.clen[21]+etable21$Impressions.clen[21]+etable22$Impressions.clen[21]+etable23$Impressions.clen[21]+etable24$Impressions.clen[21]+etable25$Impressions.clen[21]+etable26$Impressions.clen[21]+etable27$Impressions.clen[21]+etable28$Impressions.clen[21]+etable29$Impressions.clen[21]+etable30$Impressions.clen[21]+etable31$Impressions.clen[21])/31
+n22 = (etable$Impressions.clen[22]+etable2$Impressions.clen[22]+etable3$Impressions.clen[22]+etable4$Impressions.clen[22]+etable5$Impressions.clen[22]+etable6$Impressions.clen[22]+etable7$Impressions.clen[22]+etable8$Impressions.clen[22]+etable9$Impressions.clen[22]+etable10$Impressions.clen[22]+etable11$Impressions.clen[22]+etable12$Impressions.clen[22]+etable13$Impressions.clen[22]+etable14$Impressions.clen[22]+etable15$Impressions.clen[22]+etable16$Impressions.clen[22]+etable17$Impressions.clen[22]+etable18$Impressions.clen[22]+etable19$Impressions.clen[22]+etable20$Impressions.clen[22]+etable21$Impressions.clen[22]+etable22$Impressions.clen[22]+etable23$Impressions.clen[22]+etable24$Impressions.clen[22]+etable25$Impressions.clen[22]+etable26$Impressions.clen[22]+etable27$Impressions.clen[22]+etable28$Impressions.clen[22]+etable29$Impressions.clen[22]+etable30$Impressions.clen[22]+etable31$Impressions.clen[22])/31
+n23 = (etable$Impressions.clen[23]+etable2$Impressions.clen[23]+etable3$Impressions.clen[23]+etable4$Impressions.clen[23]+etable5$Impressions.clen[23]+etable6$Impressions.clen[23]+etable7$Impressions.clen[23]+etable8$Impressions.clen[23]+etable9$Impressions.clen[23]+etable10$Impressions.clen[23]+etable11$Impressions.clen[23]+etable12$Impressions.clen[23]+etable13$Impressions.clen[23]+etable14$Impressions.clen[23]+etable15$Impressions.clen[23]+etable16$Impressions.clen[23]+etable17$Impressions.clen[23]+etable18$Impressions.clen[23]+etable19$Impressions.clen[23]+etable20$Impressions.clen[23]+etable21$Impressions.clen[23]+etable22$Impressions.clen[23]+etable23$Impressions.clen[23]+etable24$Impressions.clen[23]+etable25$Impressions.clen[23]+etable26$Impressions.clen[23]+etable27$Impressions.clen[23]+etable28$Impressions.clen[23]+etable29$Impressions.clen[23]+etable30$Impressions.clen[23]+etable31$Impressions.clen[23])/31
+n24 = (etable$Impressions.clen[24]+etable2$Impressions.clen[24]+etable3$Impressions.clen[24]+etable4$Impressions.clen[24]+etable5$Impressions.clen[24]+etable6$Impressions.clen[24]+etable7$Impressions.clen[24]+etable8$Impressions.clen[24]+etable9$Impressions.clen[24]+etable10$Impressions.clen[24]+etable11$Impressions.clen[24]+etable12$Impressions.clen[24]+etable13$Impressions.clen[24]+etable14$Impressions.clen[24]+etable15$Impressions.clen[24]+etable16$Impressions.clen[24]+etable17$Impressions.clen[24]+etable18$Impressions.clen[24]+etable19$Impressions.clen[24]+etable20$Impressions.clen[24]+etable21$Impressions.clen[24]+etable22$Impressions.clen[24]+etable23$Impressions.clen[24]+etable24$Impressions.clen[24]+etable25$Impressions.clen[24]+etable26$Impressions.clen[24]+etable27$Impressions.clen[24]+etable28$Impressions.clen[24]+etable29$Impressions.clen[24]+etable30$Impressions.clen[24]+etable31$Impressions.clen[24])/31
+n25 = (etable$Impressions.clen[25]+etable2$Impressions.clen[25]+etable3$Impressions.clen[25]+etable4$Impressions.clen[25]+etable5$Impressions.clen[25]+etable6$Impressions.clen[25]+etable7$Impressions.clen[25]+etable8$Impressions.clen[25]+etable9$Impressions.clen[25]+etable10$Impressions.clen[25]+etable11$Impressions.clen[25]+etable12$Impressions.clen[25]+etable13$Impressions.clen[25]+etable14$Impressions.clen[25]+etable15$Impressions.clen[25]+etable16$Impressions.clen[25]+etable17$Impressions.clen[25]+etable18$Impressions.clen[25]+etable19$Impressions.clen[25]+etable20$Impressions.clen[25]+etable21$Impressions.clen[25]+etable22$Impressions.clen[25]+etable23$Impressions.clen[25]+etable24$Impressions.clen[25]+etable25$Impressions.clen[25]+etable26$Impressions.clen[25]+etable27$Impressions.clen[25]+etable28$Impressions.clen[25]+etable29$Impressions.clen[25]+etable30$Impressions.clen[25]+etable31$Impressions.clen[25])/31
+n26 = (etable$Impressions.clen[26]+etable2$Impressions.clen[26]+etable3$Impressions.clen[26]+etable4$Impressions.clen[26]+etable5$Impressions.clen[26]+etable6$Impressions.clen[26]+etable7$Impressions.clen[26]+etable8$Impressions.clen[26]+etable9$Impressions.clen[26]+etable10$Impressions.clen[26]+etable11$Impressions.clen[26]+etable12$Impressions.clen[26]+etable13$Impressions.clen[26]+etable14$Impressions.clen[26]+etable15$Impressions.clen[26]+etable16$Impressions.clen[26]+etable17$Impressions.clen[26]+etable18$Impressions.clen[26]+etable19$Impressions.clen[26]+etable20$Impressions.clen[26]+etable21$Impressions.clen[26]+etable22$Impressions.clen[26]+etable23$Impressions.clen[26]+etable24$Impressions.clen[26]+etable25$Impressions.clen[26]+etable26$Impressions.clen[26]+etable27$Impressions.clen[26]+etable28$Impressions.clen[26]+etable29$Impressions.clen[26]+etable30$Impressions.clen[26]+etable31$Impressions.clen[26])/31
+n27 = (etable$Impressions.clen[27]+etable2$Impressions.clen[27]+etable3$Impressions.clen[27]+etable4$Impressions.clen[27]+etable5$Impressions.clen[27]+etable6$Impressions.clen[27]+etable7$Impressions.clen[27]+etable8$Impressions.clen[27]+etable9$Impressions.clen[27]+etable10$Impressions.clen[27]+etable11$Impressions.clen[27]+etable12$Impressions.clen[27]+etable13$Impressions.clen[27]+etable14$Impressions.clen[27]+etable15$Impressions.clen[27]+etable16$Impressions.clen[27]+etable17$Impressions.clen[27]+etable18$Impressions.clen[27]+etable19$Impressions.clen[27]+etable20$Impressions.clen[27]+etable21$Impressions.clen[27]+etable22$Impressions.clen[27]+etable23$Impressions.clen[27]+etable24$Impressions.clen[27]+etable25$Impressions.clen[27]+etable26$Impressions.clen[27]+etable27$Impressions.clen[27]+etable28$Impressions.clen[27]+etable29$Impressions.clen[27]+etable30$Impressions.clen[27]+etable31$Impressions.clen[27])/31
+n28 = (etable$Impressions.clen[28]+etable2$Impressions.clen[28]+etable3$Impressions.clen[28]+etable4$Impressions.clen[28]+etable5$Impressions.clen[28]+etable6$Impressions.clen[28]+etable7$Impressions.clen[28]+etable8$Impressions.clen[28]+etable9$Impressions.clen[28]+etable10$Impressions.clen[28]+etable11$Impressions.clen[28]+etable12$Impressions.clen[28]+etable13$Impressions.clen[28]+etable14$Impressions.clen[28]+etable15$Impressions.clen[28]+etable16$Impressions.clen[28]+etable17$Impressions.clen[28]+etable18$Impressions.clen[28]+etable19$Impressions.clen[28]+etable20$Impressions.clen[28]+etable21$Impressions.clen[28]+etable22$Impressions.clen[28]+etable23$Impressions.clen[28]+etable24$Impressions.clen[28]+etable25$Impressions.clen[28]+etable26$Impressions.clen[28]+etable27$Impressions.clen[28]+etable28$Impressions.clen[28]+etable29$Impressions.clen[28]+etable30$Impressions.clen[28]+etable31$Impressions.clen[28])/31
+n29 = (etable$Impressions.clen[29]+etable2$Impressions.clen[29]+etable3$Impressions.clen[29]+etable4$Impressions.clen[29]+etable5$Impressions.clen[29]+etable6$Impressions.clen[29]+etable7$Impressions.clen[29]+etable8$Impressions.clen[29]+etable9$Impressions.clen[29]+etable10$Impressions.clen[29]+etable11$Impressions.clen[29]+etable12$Impressions.clen[29]+etable13$Impressions.clen[29]+etable14$Impressions.clen[29]+etable15$Impressions.clen[29]+etable16$Impressions.clen[29]+etable17$Impressions.clen[29]+etable18$Impressions.clen[29]+etable19$Impressions.clen[29]+etable20$Impressions.clen[29]+etable21$Impressions.clen[29]+etable22$Impressions.clen[29]+etable23$Impressions.clen[29]+etable24$Impressions.clen[29]+etable25$Impressions.clen[29]+etable26$Impressions.clen[29]+etable27$Impressions.clen[29]+etable28$Impressions.clen[29]+etable29$Impressions.clen[29]+etable30$Impressions.clen[29]+etable31$Impressions.clen[29])/31
+n30 = (etable$Impressions.clen[30]+etable2$Impressions.clen[30]+etable3$Impressions.clen[30]+etable4$Impressions.clen[30]+etable5$Impressions.clen[30]+etable6$Impressions.clen[30]+etable7$Impressions.clen[30]+etable8$Impressions.clen[30]+etable9$Impressions.clen[30]+etable10$Impressions.clen[30]+etable11$Impressions.clen[30]+etable12$Impressions.clen[30]+etable13$Impressions.clen[30]+etable14$Impressions.clen[30]+etable15$Impressions.clen[30]+etable16$Impressions.clen[30]+etable17$Impressions.clen[30]+etable18$Impressions.clen[30]+etable19$Impressions.clen[30]+etable20$Impressions.clen[30]+etable21$Impressions.clen[30]+etable22$Impressions.clen[30]+etable23$Impressions.clen[30]+etable24$Impressions.clen[30]+etable25$Impressions.clen[30]+etable26$Impressions.clen[30]+etable27$Impressions.clen[30]+etable28$Impressions.clen[30]+etable29$Impressions.clen[30]+etable30$Impressions.clen[30]+etable31$Impressions.clen[30])/31
+n31 = (etable$Impressions.clen[31]+etable2$Impressions.clen[31]+etable3$Impressions.clen[31]+etable4$Impressions.clen[31]+etable5$Impressions.clen[31]+etable6$Impressions.clen[31]+etable7$Impressions.clen[31]+etable8$Impressions.clen[31]+etable9$Impressions.clen[31]+etable10$Impressions.clen[31]+etable11$Impressions.clen[31]+etable12$Impressions.clen[31]+etable13$Impressions.clen[31]+etable14$Impressions.clen[31]+etable15$Impressions.clen[31]+etable16$Impressions.clen[31]+etable17$Impressions.clen[31]+etable18$Impressions.clen[31]+etable19$Impressions.clen[31]+etable20$Impressions.clen[31]+etable21$Impressions.clen[31]+etable22$Impressions.clen[31]+etable23$Impressions.clen[31]+etable24$Impressions.clen[31]+etable25$Impressions.clen[31]+etable26$Impressions.clen[31]+etable27$Impressions.clen[31]+etable28$Impressions.clen[31]+etable29$Impressions.clen[31]+etable30$Impressions.clen[31]+etable31$Impressions.clen[31])/31
+n32 = (etable$Impressions.clen[32]+etable2$Impressions.clen[32]+etable3$Impressions.clen[32]+etable4$Impressions.clen[32]+etable5$Impressions.clen[32]+etable6$Impressions.clen[32]+etable7$Impressions.clen[32]+etable8$Impressions.clen[32]+etable9$Impressions.clen[32]+etable10$Impressions.clen[32]+etable11$Impressions.clen[32]+etable12$Impressions.clen[32]+etable13$Impressions.clen[32]+etable14$Impressions.clen[32]+etable15$Impressions.clen[32]+etable16$Impressions.clen[32]+etable17$Impressions.clen[32]+etable18$Impressions.clen[32]+etable19$Impressions.clen[32]+etable20$Impressions.clen[32]+etable21$Impressions.clen[32]+etable22$Impressions.clen[32]+etable23$Impressions.clen[32]+etable24$Impressions.clen[32]+etable25$Impressions.clen[32]+etable26$Impressions.clen[32]+etable27$Impressions.clen[32]+etable28$Impressions.clen[32]+etable29$Impressions.clen[32]+etable30$Impressions.clen[32]+etable31$Impressions.clen[32])/31
+n33 = (etable$Impressions.clen[33]+etable2$Impressions.clen[33]+etable3$Impressions.clen[33]+etable4$Impressions.clen[33]+etable5$Impressions.clen[33]+etable6$Impressions.clen[33]+etable7$Impressions.clen[33]+etable8$Impressions.clen[33]+etable9$Impressions.clen[33]+etable10$Impressions.clen[33]+etable11$Impressions.clen[33]+etable12$Impressions.clen[33]+etable13$Impressions.clen[33]+etable14$Impressions.clen[33]+etable15$Impressions.clen[33]+etable16$Impressions.clen[33]+etable17$Impressions.clen[33]+etable18$Impressions.clen[33]+etable19$Impressions.clen[33]+etable20$Impressions.clen[33]+etable21$Impressions.clen[33]+etable22$Impressions.clen[33]+etable23$Impressions.clen[33]+etable24$Impressions.clen[33]+etable25$Impressions.clen[33]+etable26$Impressions.clen[33]+etable27$Impressions.clen[33]+etable28$Impressions.clen[33]+etable29$Impressions.clen[33]+etable30$Impressions.clen[33]+etable31$Impressions.clen[33])/31
+n34 = (etable$Impressions.clen[34]+etable2$Impressions.clen[34]+etable3$Impressions.clen[34]+etable4$Impressions.clen[34]+etable5$Impressions.clen[34]+etable6$Impressions.clen[34]+etable7$Impressions.clen[34]+etable8$Impressions.clen[34]+etable9$Impressions.clen[34]+etable10$Impressions.clen[34]+etable11$Impressions.clen[34]+etable12$Impressions.clen[34]+etable13$Impressions.clen[34]+etable14$Impressions.clen[34]+etable15$Impressions.clen[34]+etable16$Impressions.clen[34]+etable17$Impressions.clen[34]+etable18$Impressions.clen[34]+etable19$Impressions.clen[34]+etable20$Impressions.clen[34]+etable21$Impressions.clen[34]+etable22$Impressions.clen[34]+etable23$Impressions.clen[34]+etable24$Impressions.clen[34]+etable25$Impressions.clen[34]+etable26$Impressions.clen[34]+etable27$Impressions.clen[34]+etable28$Impressions.clen[34]+etable29$Impressions.clen[34]+etable30$Impressions.clen[34]+etable31$Impressions.clen[34])/31
+n35 = (etable$Impressions.clen[35]+etable2$Impressions.clen[35]+etable3$Impressions.clen[35]+etable4$Impressions.clen[35]+etable5$Impressions.clen[35]+etable6$Impressions.clen[35]+etable7$Impressions.clen[35]+etable8$Impressions.clen[35]+etable9$Impressions.clen[35]+etable10$Impressions.clen[35]+etable11$Impressions.clen[35]+etable12$Impressions.clen[35]+etable13$Impressions.clen[35]+etable14$Impressions.clen[35]+etable15$Impressions.clen[35]+etable16$Impressions.clen[35]+etable17$Impressions.clen[35]+etable18$Impressions.clen[35]+etable19$Impressions.clen[35]+etable20$Impressions.clen[35]+etable21$Impressions.clen[35]+etable22$Impressions.clen[35]+etable23$Impressions.clen[35]+etable24$Impressions.clen[35]+etable25$Impressions.clen[35]+etable26$Impressions.clen[35]+etable27$Impressions.clen[35]+etable28$Impressions.clen[35]+etable29$Impressions.clen[35]+etable30$Impressions.clen[35]+etable31$Impressions.clen[35])/31
+n36 = (etable$Impressions.clen[36]+etable2$Impressions.clen[36]+etable3$Impressions.clen[36]+etable4$Impressions.clen[36]+etable5$Impressions.clen[36]+etable6$Impressions.clen[36]+etable7$Impressions.clen[36]+etable8$Impressions.clen[36]+etable9$Impressions.clen[36]+etable10$Impressions.clen[36]+etable11$Impressions.clen[36]+etable12$Impressions.clen[36]+etable13$Impressions.clen[36]+etable14$Impressions.clen[36]+etable15$Impressions.clen[36]+etable16$Impressions.clen[36]+etable17$Impressions.clen[36]+etable18$Impressions.clen[36]+etable19$Impressions.clen[36]+etable20$Impressions.clen[36]+etable21$Impressions.clen[36]+etable22$Impressions.clen[36]+etable23$Impressions.clen[36]+etable24$Impressions.clen[36]+etable25$Impressions.clen[36]+etable26$Impressions.clen[36]+etable27$Impressions.clen[36]+etable28$Impressions.clen[36]+etable29$Impressions.clen[36]+etable30$Impressions.clen[36]+etable31$Impressions.clen[36])/31
+n37 = (etable$Impressions.clen[37]+etable2$Impressions.clen[37]+etable3$Impressions.clen[37]+etable4$Impressions.clen[37]+etable5$Impressions.clen[37]+etable6$Impressions.clen[37]+etable7$Impressions.clen[37]+etable8$Impressions.clen[37]+etable9$Impressions.clen[37]+etable10$Impressions.clen[37]+etable11$Impressions.clen[37]+etable12$Impressions.clen[37]+etable13$Impressions.clen[37]+etable14$Impressions.clen[37]+etable15$Impressions.clen[37]+etable16$Impressions.clen[37]+etable17$Impressions.clen[37]+etable18$Impressions.clen[37]+etable19$Impressions.clen[37]+etable20$Impressions.clen[37]+etable21$Impressions.clen[37]+etable22$Impressions.clen[37]+etable23$Impressions.clen[37]+etable24$Impressions.clen[37]+etable25$Impressions.clen[37]+etable26$Impressions.clen[37]+etable27$Impressions.clen[37]+etable28$Impressions.clen[37]+etable29$Impressions.clen[37]+etable30$Impressions.clen[37]+etable31$Impressions.clen[37])/31
+n38 = (etable$Impressions.clen[38]+etable2$Impressions.clen[38]+etable3$Impressions.clen[38]+etable4$Impressions.clen[38]+etable5$Impressions.clen[38]+etable6$Impressions.clen[38]+etable7$Impressions.clen[38]+etable8$Impressions.clen[38]+etable9$Impressions.clen[38]+etable10$Impressions.clen[38]+etable11$Impressions.clen[38]+etable12$Impressions.clen[38]+etable13$Impressions.clen[38]+etable14$Impressions.clen[38]+etable15$Impressions.clen[38]+etable16$Impressions.clen[38]+etable17$Impressions.clen[38]+etable18$Impressions.clen[38]+etable19$Impressions.clen[38]+etable20$Impressions.clen[38]+etable21$Impressions.clen[38]+etable22$Impressions.clen[38]+etable23$Impressions.clen[38]+etable24$Impressions.clen[38]+etable25$Impressions.clen[38]+etable26$Impressions.clen[38]+etable27$Impressions.clen[38]+etable28$Impressions.clen[38]+etable29$Impressions.clen[38]+etable30$Impressions.clen[38]+etable31$Impressions.clen[38])/31
+n39 = (etable$Impressions.clen[39]+etable2$Impressions.clen[39]+etable3$Impressions.clen[39]+etable4$Impressions.clen[39]+etable5$Impressions.clen[39]+etable6$Impressions.clen[39]+etable7$Impressions.clen[39]+etable8$Impressions.clen[39]+etable9$Impressions.clen[39]+etable10$Impressions.clen[39]+etable11$Impressions.clen[39]+etable12$Impressions.clen[39]+etable13$Impressions.clen[39]+etable14$Impressions.clen[39]+etable15$Impressions.clen[39]+etable16$Impressions.clen[39]+etable17$Impressions.clen[39]+etable18$Impressions.clen[39]+etable19$Impressions.clen[39]+etable20$Impressions.clen[39]+etable21$Impressions.clen[39]+etable22$Impressions.clen[39]+etable23$Impressions.clen[39]+etable24$Impressions.clen[39]+etable25$Impressions.clen[39]+etable26$Impressions.clen[39]+etable27$Impressions.clen[39]+etable28$Impressions.clen[39]+etable29$Impressions.clen[39]+etable30$Impressions.clen[39]+etable31$Impressions.clen[39])/31
+n40 = (etable$Impressions.clen[40]+etable2$Impressions.clen[40]+etable3$Impressions.clen[40]+etable4$Impressions.clen[40]+etable5$Impressions.clen[40]+etable6$Impressions.clen[40]+etable7$Impressions.clen[40]+etable8$Impressions.clen[40]+etable9$Impressions.clen[40]+etable10$Impressions.clen[40]+etable11$Impressions.clen[40]+etable12$Impressions.clen[40]+etable13$Impressions.clen[40]+etable14$Impressions.clen[40]+etable15$Impressions.clen[40]+etable16$Impressions.clen[40]+etable17$Impressions.clen[40]+etable18$Impressions.clen[40]+etable19$Impressions.clen[40]+etable20$Impressions.clen[40]+etable21$Impressions.clen[40]+etable22$Impressions.clen[40]+etable23$Impressions.clen[40]+etable24$Impressions.clen[40]+etable25$Impressions.clen[40]+etable26$Impressions.clen[40]+etable27$Impressions.clen[40]+etable28$Impressions.clen[40]+etable29$Impressions.clen[40]+etable30$Impressions.clen[40]+etable31$Impressions.clen[40])/31
+n41 = (etable$Impressions.clen[41]+etable2$Impressions.clen[41]+etable3$Impressions.clen[41]+etable4$Impressions.clen[41]+etable5$Impressions.clen[41]+etable6$Impressions.clen[41]+etable7$Impressions.clen[41]+etable8$Impressions.clen[41]+etable9$Impressions.clen[41]+etable10$Impressions.clen[41]+etable11$Impressions.clen[41]+etable12$Impressions.clen[41]+etable13$Impressions.clen[41]+etable14$Impressions.clen[41]+etable15$Impressions.clen[41]+etable16$Impressions.clen[41]+etable17$Impressions.clen[41]+etable18$Impressions.clen[41]+etable19$Impressions.clen[41]+etable20$Impressions.clen[41]+etable21$Impressions.clen[41]+etable22$Impressions.clen[41]+etable23$Impressions.clen[41]+etable24$Impressions.clen[41]+etable25$Impressions.clen[41]+etable26$Impressions.clen[41]+etable27$Impressions.clen[41]+etable28$Impressions.clen[41]+etable29$Impressions.clen[41]+etable30$Impressions.clen[41]+etable31$Impressions.clen[41])/31
+n42 = (etable$Impressions.clen[42]+etable2$Impressions.clen[42]+etable3$Impressions.clen[42]+etable4$Impressions.clen[42]+etable5$Impressions.clen[42]+etable6$Impressions.clen[42]+etable7$Impressions.clen[42]+etable8$Impressions.clen[42]+etable9$Impressions.clen[42]+etable10$Impressions.clen[42]+etable11$Impressions.clen[42]+etable12$Impressions.clen[42]+etable13$Impressions.clen[42]+etable14$Impressions.clen[42]+etable15$Impressions.clen[42]+etable16$Impressions.clen[42]+etable17$Impressions.clen[42]+etable18$Impressions.clen[42]+etable19$Impressions.clen[42]+etable20$Impressions.clen[42]+etable21$Impressions.clen[42]+etable22$Impressions.clen[42]+etable23$Impressions.clen[42]+etable24$Impressions.clen[42]+etable25$Impressions.clen[42]+etable26$Impressions.clen[42]+etable27$Impressions.clen[42]+etable28$Impressions.clen[42]+etable29$Impressions.clen[42]+etable30$Impressions.clen[42]+etable31$Impressions.clen[42])/31
+
+
+
+etableavg <- intersect(etable, etable2)
+etableavg$new.col <- c(n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15, n16, n17, n18, n19, n20, n21, n22, n23, n24, n25, n26, n27, n28, n29, n30, n31, n32, n33, n34, n35, n36, n37, n38, n39, n40, n41, n42)
+
+
